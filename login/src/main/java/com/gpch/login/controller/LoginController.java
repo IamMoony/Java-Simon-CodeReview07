@@ -86,7 +86,7 @@ public class LoginController {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByName(auth.getName());
-        modelAndView.addObject("userName", "Welcome " + user.getName() + " " + user.getLastName());
+        modelAndView.addObject("name", "Welcome " + user.getName() + " " + user.getLastName());
         modelAndView.addObject("adminMessage","Content Available Only for Users with Teacher Role");
         if(user.getRole() == 1){
             String result = "";
@@ -95,7 +95,7 @@ public class LoginController {
                     result += "<div>" + users.toString() + "</div>";
                 }
             }
-            modelAndView.addObject("adminMessage",result);
+            modelAndView.addObject("adminMessage", result);
         }
         modelAndView.setViewName("teacher/home");
         return modelAndView;
