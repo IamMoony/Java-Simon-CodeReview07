@@ -36,15 +36,33 @@ public class LoginController {
         return modelAndView;
     }
 
+    @RequestMapping(value="/registration_teacher", method = RequestMethod.GET)
+    public ModelAndView registration_teacher(){
+        ModelAndView modelAndView = new ModelAndView();
+        User user = new User();
+        modelAndView.addObject("user", user);
+        modelAndView.setViewName("registration_teacher");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/registration_teacher", method = RequestMethod.POST)
+    public ModelAndView createNewUserTeacher(@Valid User user, BindingResult bindingResult) {
+        ModelAndView modelAndView = new ModelAndView();
+        if (bindingResult.hasErrors()) {
+            modelAndView.setViewName("registration_teacher");
+        } else {
+            userService.saveUser(user);
+            modelAndView.addObject("successMessage", "User has been registered successfully");
+            modelAndView.addObject("user", new User());
+            modelAndView.setViewName("registration_teacher");
+
+        }
+        return modelAndView;
+    }
+
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public ModelAndView createNewUser(@Valid User user, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
-        User userExists = userService.findUserByEmail(user.getEmail());
-        if (userExists != null) {
-            bindingResult
-                    .rejectValue("email", "error.user",
-                            "There is already a user registered with the email provided");
-        }
         if (bindingResult.hasErrors()) {
             modelAndView.setViewName("registration");
         } else {
@@ -61,8 +79,8 @@ public class LoginController {
     public ModelAndView home(){
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userService.findUserByEmail(auth.getName());
-        modelAndView.addObject("userName", "Welcome " + user.getName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
+        User user = userService.findUserByName(auth.getName());
+        modelAndView.addObject("userName", "Welcome " + user.getName() + " " + user.getLastName());
         modelAndView.addObject("adminMessage","Content Available Only for Users with Admin Role");
         modelAndView.setViewName("admin/home");
         return modelAndView;

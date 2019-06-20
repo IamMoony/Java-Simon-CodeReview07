@@ -36,37 +36,36 @@ public class UserServiceTest {
                 .id(1)
                 .name("John")
                 .lastName("Doe")
-                .email("test@test.com")
                 .build();
 
         Mockito.when(mockUserRepository.save(any()))
                 .thenReturn(user);
-        Mockito.when(mockUserRepository.findByEmail(anyString()))
+        Mockito.when(mockUserRepository.findByName(anyString()))
                 .thenReturn(user);
     }
 
     @Test
-    public void testFindUserByEmail() {
+    public void testFindUserByName() {
         // Setup
-        final String email = "test@test.com";
+        final String name = "John";
 
         // Run the test
-        final User result = userServiceUnderTest.findUserByEmail(email);
+        final User result = userServiceUnderTest.findUserByName(name);
 
         // Verify the results
-        assertEquals(email, result.getEmail());
+        assertEquals(name, result.getName());
     }
 
     @Test
     public void testSaveUser() {
         // Setup
-        final String email = "test@test.com";
+        final String name = "John";
 
         // Run the test
         User result = userServiceUnderTest.saveUser(User.builder().build());
 
         // Verify the results
-        assertEquals(email, result.getEmail());
+        assertEquals(name, result.getName());
     }
 }
 

@@ -23,10 +23,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id")
     private int id;
-    @Column(name = "email")
-    @Email(message = "*Please provide a valid Email")
-    @NotEmpty(message = "*Please provide an email")
-    private String email;
+    @Column(name = "classToAttend")
+    @NotEmpty(message = "*Please provide a class you want to attend")
+    private String classToAttend;
     @Column(name = "password")
     @Length(min = 5, message = "*Your password must have at least 5 characters")
     @NotEmpty(message = "*Please provide your password")
@@ -51,12 +50,12 @@ public class User {
         this.id = id;
     }
 
-    public String getEmail() {
-        return email;
+    public String getClassToAttend() {
+        return classToAttend;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setClassToAttend(String classToAttend) {
+        this.classToAttend = classToAttend;
     }
 
     public String getPassword() {
