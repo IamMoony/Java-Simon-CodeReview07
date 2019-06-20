@@ -24,7 +24,6 @@ public class User {
     @Column(name = "user_id")
     private int id;
     @Column(name = "classToAttend")
-    @NotEmpty(message = "*Please provide a class you want to attend")
     private String classToAttend;
     @Column(name = "password")
     @Length(min = 5, message = "*Your password must have at least 5 characters")
@@ -38,6 +37,8 @@ public class User {
     private String lastName;
     @Column(name = "active")
     private int active;
+    @Column(name = "role")
+    private int role;
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
@@ -96,5 +97,27 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", classToAttend='" + classToAttend + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", active=" + active +
+                ", role=" + role +
+                ", roles=" + roles +
+                '}';
     }
 }

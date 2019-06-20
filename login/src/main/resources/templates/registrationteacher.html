@@ -16,10 +16,10 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <form autocomplete="off" action="#" th:action="@{/registration_teacher}"
+            <form autocomplete="off" action="#" th:action="@{/registrationteacher}"
                   th:object="${user}" method="post" class="form-horizontal"
                   role="form">
-                <h2>Registration Form for Teachers</h2>
+                <h2>Registration Form</h2>
                 <div class="form-group">
                     <div class="col-sm-9">
                         <label th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
@@ -37,6 +37,7 @@
                                placeholder="Last Name" class="form-control" />
                     </div>
                 </div>
+
                 <div class="form-group">
                     <div class="col-sm-9">
                         <input type="password" th:field="*{password}"
